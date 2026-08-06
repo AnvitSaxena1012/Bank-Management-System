@@ -1,0 +1,158 @@
+class BankAccount:
+
+    customer_count=1000
+    
+    def __init__(self,customer_name,initial_balance = 0): 
+
+        if initial_balance < 0:
+            raise ValueError("Initial Balance cannot be negative")
+        
+        BankAccount.customer_count += 1
+
+        self.customer_id = BankAccount.customer_count
+
+        self.customer_name = customer_name
+        self.balance = initial_balance  
+
+        print(f"\nAccount Created Successfully!")
+        print(f"Customer ID : {self.customer_id}")
+        print(f"Customer name :{self.customer_name}")
+        print(f"Initial_Balence : {self.balance:.2f}")
+
+        self.transaction_history = []  #Empty list for history
+
+        #Initial amount recorded during opening of account
+        self._add_transaction(f"Account opened successfully having ${initial_balance}")
+
+
+    def _add_transaction(self,description):
+
+        passbook_entry = {"description": description, "Current Balance": self.balance}
+
+       #passbook data will be stored at the end of the empty list previously created
+        self.transaction_history.append(passbook_entry)
+    
+    def deposit(self,amount):
+
+            if amount <= 0:
+
+              print("Please try again and enter a positive number ")  
+              return
+
+            self.balance+=amount
+            message= (f"Balance after deposit is ${self.balance:.2f}")
+            print(message)
+            self._add_transaction(f"Amount deposited in the bank is ${self.balance:.2f}")
+
+    def withdrawal(self,amount):
+
+            if amount <= 0:
+              print("Amount of withrawal must be positive, Please try again")
+              return
+          
+                #Overdrafting Prevention
+            if amount > self.balance :
+              print("Transaction Denied, Please try again !!")
+              return
+
+            self.balance-=amount
+
+            message= (f"Balance after withdrawal is ${self.balance:.2f}")
+            print(message)
+
+            self._add_transaction(f"Amount withdrew from the bank is ${amount}")
+    def show_history(self):
+      try:
+        print("\n-----------Transaction History-------------")
+        for item in self.transaction_history:
+          print(f"{item['description']} | Balance: ${item['Current Balance']}")
+      except NameError as name:
+        print("Error occured!!",name)
+
+    def check_balance(self):
+      print(f"Current Balance after transaction is {self.balance:.2f}")
+      return self.balance
+
+#______________________________________________________      
+#       Main Menu
+#______________________________________________________
+def main():
+   
+   accounts={}
+
+   print("\n--------------Welcome to Eagle County Bank-----------------------")
+
+   while True:
+      print("\n 1. Create Account")
+      print("\n 2. Check Deposit Money")
+      print("\n 3. Check Withdrawal Money")
+      print("\n 4. Check Transaction History")
+      print("\n 5. Check Balance")
+      print("\n 6. Exit")
+      
+      try:
+        choice=(input("Select an Option [1 to 6] : "))
+
+      except ValueError as val:
+        print("Invalid Input, Please enter the valid number ")
+        continue
+    
+      if choice == "1":
+
+         name =(input("Welcome customer!! Please enter your name : "))
+         balance = float(input("Enter your initial balance : "))
+
+         account = BankAccount(name , balance)
+         accounts[account.customer_id] = account
+
+      elif choice == "2":
+
+          cid = int(input("Enter your Customer ID : "))
+
+          if cid in accounts:
+
+             amount=float(input("Enter the amount to be deposited in ($) : "))
+
+             accounts[cid].deposit(amount)
+
+          else:
+             print("Customer not found")
+
+      elif choice == "3":
+
+         cid = int(input("Enter your Customer ID : "))
+
+         if cid in accounts:
+
+            amount = float(input("Enter the amount to be withdrawn in ($) : "))
+
+            accounts[cid].withdrawal(amount)
+
+         else:
+            print("Customer not found")
+
+      elif choice == "4":
+
+         cid = int(input("Enter your Customer ID : "))
+
+         if cid in accounts:
+
+            accounts[cid].show_history()
+
+         
+      elif choice == "5":
+
+           cid = int(input("Enter your Customer ID : "))
+
+           if cid in accounts:
+              accounts[cid].check_balance()
+
+      elif choice == "6":
+
+         print("Thank You for visiting Eagle County Bank")
+         print("We appretiate your patience. Hope you visit again")
+         break
+
+if __name__ == "__main__":
+    main()
+    
