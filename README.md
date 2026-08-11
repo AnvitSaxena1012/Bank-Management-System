@@ -1,4 +1,4 @@
-# 🏦 Eagle County Bank — Menu-Driven Banking System
+# Eagle County Bank — Menu-Driven Banking System
 
 A command-line banking application in Python that models core account operations — account creation, deposits, withdrawals, transaction history, and balance inquiries — using object-oriented design and a persistent in-session transaction ledger.
 
@@ -8,19 +8,19 @@ A command-line banking application in Python that models core account operations
 
 ---
 
-## 📖 Overview
+## Overview
 
 Eagle County Bank is a terminal-based banking system built entirely with core Python (no external libraries). It simulates the essential workflow of a retail bank account: opening an account, depositing and withdrawing funds, reviewing a running transaction history, and checking the current balance — all through a simple numbered menu. The project's goal is to demonstrate clean object-oriented design, defensive input handling, and encapsulated business logic (like automatic account numbering and overdraft prevention) in a single, self-contained Python program.
 
-## 🎯 Problem / Motivation
+## Problem / Motivation
 
 Manual, ad-hoc tracking of account transactions is error-prone and doesn't scale. This project addresses that by encapsulating all account state and rules — balance, transaction log, ID assignment, and validation — inside a single `BankAccount` class, so that every deposit or withdrawal is validated and logged consistently rather than handled with scattered, repeated logic. It was built as a hands-on exercise in translating a real-world process (banking operations) into a structured, class-based program with a usable command-line interface.
 
-## 📊 Dataset / Data Source
+##  Dataset / Data Source
 
 Not applicable. This is not a data-analysis project — account and transaction data is generated interactively at runtime by the user and held in memory (a Python dictionary) for the duration of the program session; it is not read from or written to an external file or database.
 
-## 🛠️ Methodology / Approach
+## Methodology / Approach
 
 The system is built around a single `BankAccount` class plus a menu-driven `main()` control loop:
 
@@ -31,7 +31,7 @@ The system is built around a single `BankAccount` class plus a menu-driven `main
 - **Menu-driven CLI loop** — `main()` runs an infinite `while True` loop presenting six options (Create Account, Deposit, Withdraw, Transaction History, Check Balance, Exit), wrapped in a `try/except ValueError` block to gracefully handle non-numeric menu input.
 - **In-memory account registry** — all created accounts are stored in a dictionary (`accounts = {}`) keyed by `customer_id`, allowing the menu to look up any account by ID for subsequent operations.
 
-## 💻 Tech Stack
+## Tech Stack
 
 | Category | Details |
 |---|---|
@@ -42,7 +42,7 @@ The system is built around a single `BankAccount` class plus a menu-driven `main
 
 Since the project has no external dependencies, there is no `requirements.txt` — any standard Python 3.6+ installation (f-strings require 3.6+) will run it.
 
-## ✅ Key Findings / Results
+## Key Findings / Results
 
 The screenshots below capture a full, successful end-to-end session:
 
@@ -57,7 +57,7 @@ The screenshots below capture a full, successful end-to-end session:
 
 This confirms that account creation, ID assignment, balance arithmetic, and transaction logging all behave consistently across a multi-step session.
 
-## 🖼️ Screenshots
+## Screenshots
 
 **Code — Account creation & unique ID generation**
 `BankAccount.__init__()` validates the opening balance, increments the class-level counter to generate a unique customer ID, prints a confirmation, and logs the opening balance as the first transaction.
@@ -99,7 +99,7 @@ Checking the balance confirms $42,000.00, and selecting Exit prints the closing 
 
 ![Terminal output: balance check and exit](screenshots/Output_3.png)
 
-## 🚀 How to Run / Installation
+## How to Run / Installation
 
 No external dependencies are required — just a standard Python installation.
 
@@ -118,7 +118,7 @@ No external dependencies are required — just a standard Python installation.
 
 > Note: All data is held in memory for the session only — restarting the program resets accounts and the ID counter (starting again at customer ID `1001`).
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 eagle-county-bank/
@@ -127,7 +127,7 @@ eagle-county-bank/
 └── screenshots/           # Code and terminal output screenshots referenced above
 ```
 
-## 🔭 Future Work / Limitations
+## Future Work / Limitations
 
 - **No persistence** — account data lives only in memory (`accounts = {}`) and is lost when the program exits; a file- or database-backed store (e.g., SQLite, JSON) would allow data to survive across sessions.
 - **No authentication** — any user can access any customer ID without a PIN or password.
@@ -135,11 +135,3 @@ eagle-county-bank/
 - **Limited input validation** — customer names are not checked for empty or invalid input.
 - **No automated tests** — the project currently relies on manual/interactive verification (as shown in the screenshots above) rather than a test suite (e.g., `unittest` or `pytest`).
 - **CLI only** — a natural extension would be a simple GUI (e.g., Tkinter) or web front end (e.g., Flask).
-
-## 📄 License / Contact
-
-This project is released under the [MIT License](LICENSE) — feel free to use, modify, and build on it.
-
-**Author:** Anvit
-For questions or feedback, feel free to open an issue or reach out via GitHub.
-
